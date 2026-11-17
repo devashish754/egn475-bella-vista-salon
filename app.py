@@ -3,21 +3,6 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
-@app.route("/")
-def home():
-    return "Welcome to Bella Vista Salon"
-
-@app.route("/about")
-def about():
-    return "Bella Vista Salon Appointment Booking System"
-
-if __name__ == "__main__":
-    app.run(debug=True)
-
-from flask import Flask, render_template
-
-app = Flask(__name__)
-
 services = [
     {"id": 1, "name": "Haircut", "duration": 30, "price": 25},
     {"id": 2, "name": "Hair Coloring", "duration": 90, "price": 80},
