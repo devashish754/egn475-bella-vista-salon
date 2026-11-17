@@ -28,11 +28,25 @@ def choose_datetime(service_id):
     if service is None:
         return "Service not found", 404
 
-    return f"Choose a date and time for {service['name']}"
+    return render_template("choose_datetime.html", service=service)
 
 @app.route("/about")
 def about():
     return "Bella Vista Salon Appointment Booking System"
 
+if __name__ == "__main__":
+def review_booking(service_id):
+    service = next(
+        (s for s in services if s["id"] == service_id),
+        None
+    )
+    if service is None:
+        return "Service not found", 404
+    return (
+        f"Review booking for {service['name']}. "
+        "The confirmation page is coming next."
+    )
+if __name__ == "__main__":
+    app.run(debug=True)
 if __name__ == "__main__":
     app.run(debug=True)
