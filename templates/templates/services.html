@@ -1,0 +1,37 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Our Salon Services</h2>
+
+<p>Welcome to Bella Vista Salon!
+Choose a service to book your appointment.</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Service</th>
+            <th>Duration</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for service in services %}
+        <tr>
+            <td>{{ service.name }}</td>
+            <td>{{ service.duration }} minutes</td>
+            <td>${{ service.price }}</td>
+            <td>
+                <a href="{{ url_for('choose_datetime', service_id=service.id) }}">
+                    Book Now
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
