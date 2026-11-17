@@ -10,13 +10,16 @@ services = [
     {"id": 4, "name": "Facial", "duration": 60, "price": 55}
 ]
 
+
 @app.route("/")
 def home():
     return render_template("services.html", services=services)
 
+
 @app.route("/services")
 def show_services():
     return render_template("services.html", services=services)
+
 
 @app.route("/book/<int:service_id>")
 def choose_datetime(service_id):
@@ -28,25 +31,40 @@ def choose_datetime(service_id):
     if service is None:
         return "Service not found", 404
 
-    return render_template("choose_datetime.html", service=service)
+    return render_template(
+        "choose_datetime.html",
+        service=service
+    )
 
-@app.route("/about")
-def about():
-    return "Bella Vista Salon Appointment Booking System"
 
-if __name__ == "__main__":
+@app.route("/review/<int:service_id>")
 def review_booking(service_id):
     service = next(
         (s for s in services if s["id"] == service_id),
         None
     )
+
     if service is None:
         return "Service not found", 404
-    return (
-        f"Review booking for {service['name']}. "
-        "The confirmation page is coming next."
+
+    date = request.args.get("date", "")
+    time = request.args.get("time", "")
+
+    if not date or not time:
+        return "Please select a date and time", 400
+
+    return render_template(
+        "review_booking.html",
+        service=service,
+        date=date,
+        time=time
     )
-if __name__ == "__main__":
-    app.run(debug=True)
+
+
+@app.route("/about")
+def about():
+    return "Bella Vista Salon Appointment Booking System"
+
+
 if __name__ == "__main__":
     app.run(debug=True)
